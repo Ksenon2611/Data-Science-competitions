@@ -15,7 +15,7 @@ from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier, Gradi
 from sklearn.neural_network import MLPClassifier
 
 
-# from sklearn.cross_validation import KFold, StratifiedKFold
+from  sklearn.cross_validation import KFold, StratifiedKFold
 from sklearn.model_selection import KFold, StratifiedKFold
 import xgboost as xgb
 from sklearn.metrics import log_loss
@@ -23,7 +23,6 @@ from xgboost.sklearn import XGBClassifier
 from sklearn.learning_curve import validation_curve
 from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
-from sklearn.cross_validation import train_test_split
 from sklearn.model_selection import cross_val_score
 
 
@@ -58,11 +57,6 @@ del X_train_cl['totalScore']
 del X_train_cl['totalBonusScore']
 
 # xtrain, xtest,ytrain, ytest = train_test_split(X_train_cl,y_train_cl,test_size = 0.3,random_state = 13) 
-X_tr = np.array(X_train_cl)
-y_tr= np.array(y_train_cl)
-
-X_train_cl.values
-
    kf = StratifiedKFold(n_splits=5, shuffle=True,random_state=13)
 
  for train_index, test_index in kf.split(X_train_cl,y_train_cl.IS_IT_GAMER):
@@ -71,12 +65,6 @@ X_train_cl.values
 print (xtrain, xtest)
 
 
-X_train_cl.reset_index(drop=True)
-y_train_cl.reset_index(drop=True)
-xtest.shape
-
-X_train_clear = X_train_cl.values
-y_train_clear = y_train_cl.values
 
 def objective(space):
     
@@ -383,4 +371,4 @@ Pred_prob = xgb_model.predict_proba(Y_test)
 Pred_xgb = np.delete(Pred_prob,0,1)
 Pred_prob.shape
 
-np.savetxt('submission1.0_v3.txt',Pred_xgb, '%.9f') 
+np.savetxt('submission1.0.txt',Pred_xgb, '%.9f') 
